@@ -7,10 +7,13 @@
 
 var tree = new Tree();
 tree.root = new Node(null, game, getBoardValues(board).whiteScore, getBoardValues(board).blackScore);
-console.log(tree);
+
+var children = []
+var best = 0;
+var worst = 145;
 
 function findBestMoveMaxi(node, depth) {
-    if (depth === 0) return evaluate();
+    if (depth === 0) return node.whiteScore - node.blackScore;
     createChildren(node)
 
     var max = 0;
@@ -27,12 +30,13 @@ function findBestMoveMaxi(node, depth) {
 }
 
 function findBestMoveMini(node, depth) {
-    if (depth === 0) return evaluate()
-
+    if (depth === 0) return node.whiteScore - node.blackScore;
+    createChildren(node);
+    console.log(node.whiteScore - node.blackScore, node.prevMove);
     var min = 145;
 
     for (let child of node.children) {
-        score = findBestMoveMaxi(child, depth - 1)
+        var score = findBestMoveMaxi(child, depth - 1)
 
         if (score < min) {
             min = score;
@@ -57,25 +61,18 @@ function createChildren(node) {
 }
 
 function AImove() {
+    console.log('ai tries to move');
     var AIColor = 'black';
-    var possibleMoves = game.moves();
+    var startBoard = tree.root;
+    createChildren(startBoard);
 
-    if (possibleMoves.length === 0) return;
+    var futureBoardValues = startBoard.children.map(function(ele) {
+        return findBestMoveMini(ele, 2)
+    })
 
-    // value of each moves
-    var futureBoards = possibleMoves.map(function(ele) {
-        var possibleBoard = new Chess(game.fen());
-        possibleBoard.move(ele);
+    console.log(futureBoardValues);
 
-        return {
-            'move': ele,
-            possibleBoard,
-            'whiteScore': getBoardValues(possibleBoard).whiteScore,
-            'blackScore': getBoardValues(possibleBoard).blackScore
-        }
-    });
-
-    var bestBoards = futureBoards.reduce(function(accum, cur) {
+    var bestBoards = startBoard.children.reduce(function(accum, cur) {
         if (accum[accum.length - 1].whiteScore > cur.whiteScore) {
             accum = [cur]
         } else if (accum[accum.length - 1].whiteScore === cur.whiteScore) {
@@ -83,13 +80,11 @@ function AImove() {
         }
 
         return accum
-    }, [futureBoards[0]])
+    }, [startBoard.children[0]])
 
-    // bestBoards.shifta();
     var randomIndex = Math.floor(Math.random() * bestBoards.length);
 
-    findBestMove(tree.root, 0)
-    game.move(bestBoards[randomIndex].move)
+    game.move(bestBoards[randomIndex].prevMove)
     board.position(game.fen());
 }
 

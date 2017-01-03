@@ -81,6 +81,7 @@ var onDrop = function(source, target) {
         return 'snapback';
 
     // make random legal move for black
+    console.log(AImove);
     window.setTimeout(AImove, 250);
 
 };
