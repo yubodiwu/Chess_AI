@@ -6,12 +6,59 @@
 // jshint mocha: true
 
 var tree = new Tree();
-tree.root = new Node(game.fen());
+tree.root = new Node(null, game, getBoardValues(board).whiteScore, getBoardValues(board).blackScore);
+console.log(tree);
+
+function findBestMoveMaxi(node, depth) {
+    if (depth === 0) return evaluate();
+    createChildren(node)
+
+    var max = 0;
+
+    for (let child of node.children) {
+        var score = findBestMoveMini(child, depth - 1);
+
+        if (score > max) {
+            max = score;
+        }
+    }
+
+    return max;
+}
+
+function findBestMoveMini(node, depth) {
+    if (depth === 0) return evaluate()
+
+    var min = 145;
+
+    for (let child of node.children) {
+        score = findBestMoveMaxi(child, depth - 1)
+
+        if (score < min) {
+            min = score;
+        }
+    }
+
+    return min;
+}
+
+function createChildren(node) {
+    var possibleMoves = node.board.moves();
+
+    if (possibleMoves.length === 0) return;
+
+    // value of each moves
+    node.children = possibleMoves.map(function(ele) {
+        var possibleBoard = new Chess(node.board.fen());
+        possibleBoard.move(ele);
+
+        return new Node(ele, possibleBoard, getBoardValues(possibleBoard).whiteScore, getBoardValues(possibleBoard).blackScore);
+    });
+}
 
 function AImove() {
     var AIColor = 'black';
     var possibleMoves = game.moves();
-    console.log(possibleMoves.length);
 
     if (possibleMoves.length === 0) return;
 
@@ -40,32 +87,10 @@ function AImove() {
 
     // bestBoards.shifta();
     var randomIndex = Math.floor(Math.random() * bestBoards.length);
-    // pick a move`\
-    console.log('best');
-    console.log(bestBoards);
-    console.log(game.fen());
 
+    findBestMove(tree.root, 0)
     game.move(bestBoards[randomIndex].move)
     board.position(game.fen());
-}
-
-function findBestMove(node) {
-    var possibleMoves = game.moves();
-
-    if (possibleMoves.length === 0) return;
-
-    // value of each moves
-    var futureBoards = possibleMoves.map(function(ele) {
-        var possibleBoard = new Chess(game.fen());
-        possibleBoard.move(ele);
-
-        return {
-            'move': ele,
-            possibleBoard,
-            'whiteScore': getBoardValues(possibleBoard).whiteScore,
-            'blackScore': getBoardValues(possibleBoard).blackScore
-        }
-    });
 }
 
 function getBoardValues(board) {

@@ -5,9 +5,12 @@
 // jshint browser: true
 // jshint mocha: true
 
-class Node (){
-    constructor(val){
-        this.val = val;
+class Node {
+    constructor(prevMove, board, whiteScore, blackScore){
+        this.prevMove = prevMove;
+        this.board = board;
+        this.whiteScore = whiteScore;
+        this.blackScore = blackScore;
         this.children = [];
     }
 }
@@ -18,7 +21,7 @@ class Tree {
     }
 }
 
-module.exports = {
-    Node,
-    Tree
-};
+// module.exports = {
+//     Node,
+//     Tree
+// };
