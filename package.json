@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "chess": "^0.2.8"
+  }
+}
