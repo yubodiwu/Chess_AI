@@ -136,15 +136,17 @@ function AImove() {
     });
 
     var bestBoards = futureBoards.reduce(function(accum, cur) {
-        if (accum.whiteScore > cur.whiteScore) {
-            return accum[accum.length - 1] = cur
-        } else if (accum.whiteScore === cur.whiteScore) {
+        if (accum[accum.length - 1].whiteScore > cur.whiteScore) {
+            accum = [cur]
+        } else if (accum[accum.length - 1].whiteScore === cur.whiteScore) {
+            console.log('happens');
             accum.push(cur)
         }
 
         return accum
     }, [futureBoards[0]])
 
+    bestBoards.shift();
     var randomIndex = Math.floor(Math.random() * bestBoards.length);
     // pick a move`\
     console.log(bestBoards);
