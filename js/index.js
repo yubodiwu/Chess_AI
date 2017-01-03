@@ -92,16 +92,16 @@ function AImove() {
         if (accum[accum.length - 1].whiteScore > cur.whiteScore) {
             accum = [cur]
         } else if (accum[accum.length - 1].whiteScore === cur.whiteScore) {
-            console.log('happens');
             accum.push(cur)
         }
 
         return accum
     }, [futureBoards[0]])
 
-    bestBoards.shift();
+    // bestBoards.shifta();
     var randomIndex = Math.floor(Math.random() * bestBoards.length);
     // pick a move`\
+    console.log('best');
     console.log(bestBoards);
 
     game.move(bestBoards[randomIndex].move)
