@@ -1,18 +1,18 @@
 "use strict";
-class Node (){
+class Node {
     constructor(val){
         this.val = val;
         this.children = [];
     }
 }
 
-class Tree (){
+class Tree {
     constructor(){
         this.root = null;
     }
 }
 
-module.exports = {
-    Node,
-    Tree
-};
+// module.exports = {
+//     Node,
+//     Tree
+// };

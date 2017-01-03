@@ -27,6 +27,45 @@ var pieceValues = {
 var board,
     game = new Chess();
 
+var removeGreySquares = function() {
+    $('#board .square-55d63').css('background', '');
+};
+
+var greySquare = function(square) {
+    var squareEl = $('#board .square-' + square);
+
+    var background = '#a9a9a9';
+    if (squareEl.hasClass('black-3c85d') === true) {
+        background = '#696969';
+    }
+
+    squareEl.css('background', background);
+};
+
+
+var onMouseoverSquare = function(square, piece) {
+    // get list of possible moves for this square
+    var moves = game.moves({
+        square: square,
+        verbose: true
+    });
+
+    // exit if there are no moves available for this square
+    if (moves.length === 0) return;
+
+    // highlight the square they moused over
+    greySquare(square);
+
+    // highlight the possible squares for this piece
+    for (var i = 0; i < moves.length; i++) {
+        greySquare(moves[i].to);
+    }
+};
+
+var onMouseoutSquare = function(square, piece) {
+    removeGreySquares();
+};
+
 // do not pick up pieces if the game is over
 // only pick up pieces for White
 var onDragStart = function(source, piece, position, orientation) {
@@ -49,6 +88,7 @@ var makeRandomMove = function() {
 };
 
 var onDrop = function(source, target) {
+    removeGreySquares();
     // see if the move is legal
     var move = game.move({
         from: source,
@@ -133,6 +173,8 @@ var cfg = {
     position: 'start',
     onDragStart: onDragStart,
     onDrop: onDrop,
-    onSnapEnd: onSnapEnd
+    onSnapEnd: onSnapEnd,
+    onMouseoutSquare: onMouseoutSquare,
+    onMouseoverSquare: onMouseoverSquare
 };
 board = ChessBoard('board', cfg);

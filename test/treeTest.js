@@ -7,6 +7,7 @@ describe("Tree", function() {
     describe("creating tree", function(){
         it("should create a tree", function(){
             var newTree = new Tree();
+            
         });
     });
 });
