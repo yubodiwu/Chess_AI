@@ -1,12 +1,12 @@
 "use strict";
-class node (){
+class node {
     constructor(val){
         this.val = val;
         this.children = [];
     }
 }
 
-class Tree (){
+class Tree {
     constructor(){
         this.root = null;
     }

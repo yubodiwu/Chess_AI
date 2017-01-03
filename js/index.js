@@ -101,10 +101,10 @@ var updateStatus = function() {
 
     // checkmate?
     if (game.in_checkmate() === true) {
-        status = 'Game over, ' + moveColor +// draw?
+        status = 'Game over, ' + moveColor + // draw?
         ' is in checkmate.';
     } else if (game.in_draw() === true) {
-        status =// game still on
+        status = // game still on
         'Game over, drawn position';
     } else {
         status = moveColor + ' to move';
@@ -145,8 +145,8 @@ function AImove() {
 
         return accum
     }, [futureBoards[0]])
-
-    bestBoards.shift();
+    // console.log(bestBoards);
+    // bestBoards.shift();
     var randomIndex = Math.floor(Math.random() * bestBoards.length);
     // pick a move`\
     console.log(bestBoards);
