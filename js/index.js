@@ -127,6 +127,7 @@ function AImove() {
     if (possibleMoves.length === 0)
         return;
 
+    // value of each moves
     var futureBoards = possibleMoves.map(function(ele) {
         var possibleBoard = new Chess(game.fen());
         possibleBoard.move(ele);
@@ -134,20 +135,22 @@ function AImove() {
         return {'move': ele, possibleBoard, 'whiteScore': getBoardValues(possibleBoard).whiteScore, 'blackScore': getBoardValues(possibleBoard).blackScore}
     });
 
-    var bestBoard = futureBoards.reduce(function(accum, cur) {
-        if (accum.whiteScore < cur.whiteScore) {
-            accum = cur;
+    var bestBoards = futureBoards.reduce(function(accum, cur) {
+        if (accum.whiteScore > cur.whiteScore) {
+            return accum[accum.length - 1] = cur
+        } else if (accum.whiteScore === cur.whiteScore) {
+            accum.push(cur)
         }
 
         return accum
-    })
+    }, [futureBoards[0]])
 
-    console.log(futureBoards);
-    console.log(futureBoards[0]);
-    // value of each moves
-
+    var randomIndex = Math.floor(Math.random() * bestBoards.length);
     // pick a move`\
-    game.move(bestBoard.move)
+    console.log(bestBoards);
+
+    game.move(bestBoards[randomIndex].move)
+    board.position(game.fen());
 }
 
 function getBoardValues(board) {
