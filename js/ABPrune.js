@@ -80,8 +80,15 @@ function AImove() {
         return accum
     }, [startBoard.children[0]])
 
-    // var randomIndex = Math.floor(Math.random() * futureBoardValues.indexOf(Math.min(...futureBoardValues)).length);
-    var minInd = futureBoardValues.indexOf(Math.min(...futureBoardValues));
+    var minVal = Math.min(...futureBoardValues);
+    var minInds = futureBoardValues.reduce(function(accum, cur, i) {
+        if (cur === minVal) {
+            accum.push(i);
+        }
+
+        return accum;
+    }, [])
+    var minInd = minInds[Math.floor(Math.random() * minInds.length)];
     game.move(startBoard.children[minInd].prevMove)
     board.position(game.fen());
 }
