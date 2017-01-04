@@ -23,24 +23,25 @@ function getBoardValues(board) {
         }
 
         if (i === 3 || i === 4) {
-            let [whiteMid, blackMid] = isMiddle(fen[i], 0.5);
-            let [whiteMid2, blackMid2] = isMiddle2(fen[i], 0.3);
+            let [whiteMid,
+                blackMid] = isMiddle(fen[i], 0.5);
+            let [whiteMid2,
+                blackMid2] = isMiddle2(fen[i], 0.3);
             whiteScore = whiteScore + whiteMid + whiteMid2;
             blackScore = blackScore + blackMid + blackMid2;
         }
 
         if (i === 2 || i === 5) {
-            let [whiteMid, blackMid] = isMiddle(fen[i], 0.3);
-            let [whiteMid2, blackMid2] = isMiddle2(fen[i], 0.3);
+            let [whiteMid,
+                blackMid] = isMiddle(fen[i], 0.3);
+            let [whiteMid2,
+                blackMid2] = isMiddle2(fen[i], 0.3);
             whiteScore = whiteScore + whiteMid + whiteMid2;
             blackScore = blackScore + blackMid + blackMid2;
         }
     }
 
-    return {
-        whiteScore,
-        blackScore
-    };
+    return {whiteScore, blackScore};
 }
 
 function isMiddle(row, midVal) {
@@ -98,19 +99,18 @@ function isMiddle2(row, midVal) {
 function createChildren(node) {
     var possibleMoves = node.board.moves();
 
-    if (possibleMoves.length === 0) return;
+    if (possibleMoves.length === 0)
+        return;
 
     node.children = []
     // value of each moves
-    for(var i = 0; i < possibleMoves.length; i++) {
+    for (var i = 0; i < possibleMoves.length; i++) {
         var possibleBoard = new Chess(node.board.fen());
         possibleBoard.move(possibleMoves[i]);
 
         let boardVals = getBoardValues(possibleBoard)
 
-        node.children.push(new Node(possibleMoves[i] , possibleBoard, boardVals.whiteScore, boardVals.blackScore))
+        node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore))
     }
-
-
 
 }
