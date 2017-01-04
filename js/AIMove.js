@@ -8,10 +8,12 @@
 function AImove() {
     var AIColor = 'black';
     var startBoard = tree.root;
+    var min = 999;
+    var max = -999;
     createChildren(startBoard);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
-        return findBestMoveMaxi(ele, 1)
+        return findBestMoveMaxi(ele, 2, max, min);
     });
 
     var bestBoards = startBoard.children.reduce(function(accum, cur) {
