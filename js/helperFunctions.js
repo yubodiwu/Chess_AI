@@ -23,14 +23,18 @@ function getBoardValues(board) {
         }
 
         if (i === 3 || i === 4) {
-            var [whiteMid, blackMid] = isMiddle(fen[i], 0.5);
-            whiteScore += whiteMid;
-            blackScore += blackMid;
+            let [whiteMid, blackMid] = isMiddle(fen[i], 0.5);
+            let [whiteMid2, blackMid2] = isMiddle2(fen[i], 0.3);
+            whiteScore = whiteScore + whiteMid + whiteMid2;
+            blackScore = blackScore + blackMid + blackMid2;
         }
 
-        // if (i === 2 || i === 5) {
-        //     var [whiteMid, blackMid] =
-        // }
+        if (i === 2 || i === 5) {
+            let [whiteMid, blackMid] = isMiddle(fen[i], 0.3);
+            let [whiteMid2, blackMid2] = isMiddle2(fen[i], 0.3);
+            whiteScore = whiteScore + whiteMid + whiteMid2;
+            blackScore = blackScore + blackMid + blackMid2;
+        }
     }
 
     return {
@@ -54,6 +58,32 @@ function isMiddle(row, midVal) {
                 }
             } else if (possibleWhites.indexOf(char) !== -1) {
                 if (ind === 3 || ind === 4) {
+                    white += midVal;
+                }
+            }
+
+            ind++;
+        }
+    }
+
+    return [white, black]
+}
+
+function isMiddle2(row, midVal) {
+    var ind = 0;
+    var white = 0;
+    var black = 0;
+
+    for (let char of row) {
+        if (!isNaN(char)) {
+            ind += Number(char);
+        } else {
+            if (possibleBlacks.indexOf(char) !== -1) {
+                if (ind === 2 || ind === 5) {
+                    black += midVal;
+                }
+            } else if (possibleWhites.indexOf(char) !== -1) {
+                if (ind === 2 || ind === 5) {
                     white += midVal;
                 }
             }
