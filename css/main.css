@@ -1,3 +1,19 @@
 #board{
 margin: 0 auto;
+margin-top: 15px
+}
+
+ body {
+     background-image: url("../img/background.jpg");
+    background-size: 100% auto;
+
+ }
+
+nav {
+    background-color: rgba(107, 65, 54, 0.5) !important;
+    text-shadow: 1px 1px 1px black;
+}
+
+nav .brand-logo {
+    color: white !important;
 }
