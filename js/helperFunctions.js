@@ -23,10 +23,14 @@ function getBoardValues(board) {
         }
 
         if (i === 3 || i === 4) {
-            var [whiteMid, blackMid] = isMiddle(fen[i]);
+            var [whiteMid, blackMid] = isMiddle(fen[i], 0.5);
             whiteScore += whiteMid;
             blackScore += blackMid;
         }
+
+        // if (i === 2 || i === 5) {
+        //     var [whiteMid, blackMid] =
+        // }
     }
 
     return {
@@ -35,7 +39,7 @@ function getBoardValues(board) {
     };
 }
 
-function isMiddle(row) {
+function isMiddle(row, midVal) {
     var ind = 0;
     var white = 0;
     var black = 0;
@@ -46,16 +50,12 @@ function isMiddle(row) {
         } else {
             if (possibleBlacks.indexOf(char) !== -1) {
                 if (ind === 3 || ind === 4) {
-                    black += 1;
-                } //else if (ind === 2 || ind === 5) {
-                //     black += 0.5;
-                // }
+                    black += midVal;
+                }
             } else if (possibleWhites.indexOf(char) !== -1) {
                 if (ind === 3 || ind === 4) {
-                    white += 1;
-                } // else if (ind === 2 || ind === 5) {
-                    // white += 0.5;
-                // }
+                    white += midVal;
+                }
             }
 
             ind++;
