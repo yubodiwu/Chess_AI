@@ -38,7 +38,6 @@ function getBoardValues(board) {
         }
     }
 
-    console.log(board);
     // if (board.in_stalemate() || board.in_draw()) {
     //     whiteScore = 0;
     //     blackScore = 0;
