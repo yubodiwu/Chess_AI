@@ -6,7 +6,7 @@
 // jshint mocha: true
 
 var tree = new Tree();
-tree.root = new Node(null, game, getBoardValues(board).whiteScore, getBoardValues(board).blackScore);
+tree.root = new Node(null, game, getBoardValues(game).whiteScore, getBoardValues(game).blackScore);
 
 var children = []
 var best = 0;
@@ -15,6 +15,7 @@ var worst = 145;
 function findBestMoveMaxi(node, depth, max, min) {
     if (depth === 0) return node.whiteScore - node.blackScore;
     createChildren(node);
+<<<<<<< HEAD
 
 
 
@@ -25,7 +26,11 @@ function findBestMoveMaxi(node, depth, max, min) {
 
             return min
 
+=======
+    if (!node.children) return node.whiteScore - node.blackScore;
+>>>>>>> a5db997ec50c776bfab84d2862d3e131befc8429
     var value = -Infinity;
+
     for (let child of node.children) {
         value = findBestMoveMini(child, depth - 1, max, value);
         if(value > min){
@@ -43,7 +48,9 @@ function findBestMoveMaxi(node, depth, max, min) {
 function findBestMoveMini(node, depth, max, min) {
     if (depth === 0) return node.whiteScore - node.blackScore;
     createChildren(node);
+    if (!node.children) return node.whiteScore - node.blackScore;
     var value = Infinity;
+
     for (let child of node.children) {
         var value = findBestMoveMaxi(child, depth - 1, value, min);
         if(value < max){

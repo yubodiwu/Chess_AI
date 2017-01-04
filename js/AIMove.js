@@ -52,7 +52,6 @@ function createChildren(node) {
     for (var i = 0; i < possibleMoves.length; i++) {
         var possibleBoard = new Chess(node.board.fen());
         possibleBoard.move(possibleMoves[i]);
-
         let boardVals = getBoardValues(possibleBoard)
 
         node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore))
