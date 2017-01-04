@@ -12,7 +12,7 @@ function AImove() {
     createChildren(startBoard);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
-        return findBestMoveMaxi(ele, 1)
+        return findBestMoveMaxi(ele, 2)
     });
 
     var bestBoards = startBoard.children.reduce(function(accum, cur) {
