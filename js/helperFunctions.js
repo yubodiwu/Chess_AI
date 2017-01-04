@@ -67,7 +67,7 @@ function isMiddle(row) {
 
 function createChildren(node) {
     var possibleMoves = node.board.moves();
-
+    if(node.children === 0) return;
     if (possibleMoves.length === 0) return;
 
     // value of each moves

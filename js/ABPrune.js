@@ -15,16 +15,14 @@ var worst = 145;
 function findBestMoveMaxi(node, depth, max, min) {
     if (depth === 0) return node.whiteScore - node.blackScore;
     createChildren(node);
-
-
-    console.log("count");
+    var value = -Infinity;
     for (let child of node.children) {
-        var score = findBestMoveMini(child, depth - 1, max, min);
-        if(score >= min){
-            return min
+        value = findBestMoveMini(child, depth - 1, max, value);
+        if(value > min){
+            return value
         }
-        if (score > max) {
-            max = score;
+        if (value > max) {
+            max = value;
         }
     }
 
@@ -34,14 +32,14 @@ function findBestMoveMaxi(node, depth, max, min) {
 function findBestMoveMini(node, depth, max, min) {
     if (depth === 0) return node.whiteScore - node.blackScore;
     createChildren(node);
-
+    var value = Infinity;
     for (let child of node.children) {
-        var score = findBestMoveMaxi(child, depth - 1, max, min);
-        if(score <= max){
-            return max;
+        var value = findBestMoveMaxi(child, depth - 1, value, min);
+        if(value < max){
+            return value;
         }
-        if (score < min) {
-            min = score;
+        if (value < min) {
+            min = value;
         }
     }
 
