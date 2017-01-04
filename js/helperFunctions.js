@@ -9,13 +9,17 @@ function getBoardValues(board) {
     var whiteScore = 0;
     var blackScore = 0;
 
-    var fen = board.fen().split(' ')[0];
+    var fen = board.fen().split(' ')[0].split('/');
 
-    for (let letter of fen) {
-        if (possibleWhites.indexOf(letter) !== -1) {
-            whiteScore += pieceValues[letter];
-        } else if (possibleBlacks.indexOf(letter) !== -1) {
-            blackScore += pieceValues[letter];
+    for (let i = 0; i < fen.length; i++) {
+        for (let j = 0; j < fen[i].length; j++) {
+            let letter = fen[i][j];
+
+            if (possibleWhites.indexOf(letter) !== -1) {
+                whiteScore += pieceValues[letter];
+            } else if (possibleBlacks.indexOf(letter) !== -1) {
+                blackScore += pieceValues[letter];
+            }
         }
     }
 
