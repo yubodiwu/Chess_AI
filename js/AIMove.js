@@ -6,6 +6,7 @@
 // jshint mocha: true
 
 function AImove() {
+    var t0 = performance.now();
     var AIColor = 'black';
     var startBoard = tree.root;
     var min = 999;
@@ -28,13 +29,13 @@ function AImove() {
 
     var minVal = Math.min(...futureBoardValues);
     var minInds = futureBoardValues.reduce(function(accum, cur, i) {
-        if (cur === minVal) {
-            accum.push(i);
-        }
+        if (cur === minVal) accum.push(i);
 
         return accum;
     }, [])
+
     var minInd = minInds[Math.floor(Math.random() * minInds.length)];
     game.move(startBoard.children[minInd].prevMove)
     board.position(game.fen());
+    console.log(`time to move is ${performance.now() - t0}`);
 }
