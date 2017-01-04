@@ -39,3 +39,17 @@ function AImove() {
     board.position(game.fen());
     console.log(`time to move is ${performance.now() - t0}`);
 }
+
+function createChildren(node) {
+    var possibleMoves = node.board.moves();
+
+    if (possibleMoves.length === 0) return;
+
+    // value of each moves
+    node.children = possibleMoves.map(function(ele) {
+        var possibleBoard = new Chess(node.board.fen());
+        possibleBoard.move(ele);
+
+        return new Node(ele, possibleBoard, getBoardValues(possibleBoard).whiteScore, getBoardValues(possibleBoard).blackScore);
+    });
+}
