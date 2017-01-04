@@ -11,7 +11,10 @@ class Node {
         this.board = board;
         this.whiteScore = whiteScore;
         this.blackScore = blackScore;
+<<<<<<< HEAD
         this.children = [];
+=======
+>>>>>>> aa3af056b0f1b3729bf5a1032fbd96bf4708173b
     }
 }
 
