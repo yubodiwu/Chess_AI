@@ -10,6 +10,7 @@ function getBoardValues(board) {
     var blackScore = 0;
 
     var fen = board.fen().split(' ')[0].split('/');
+    var sideToMove = board.fen().split(' ')[1];
 
     for (let i = 0; i < fen.length; i++) {
         for (let j = 0; j < fen[i].length; j++) {
@@ -23,25 +24,42 @@ function getBoardValues(board) {
         }
 
         if (i === 3 || i === 4) {
-            let [whiteMid,
-                blackMid] = isMiddle(fen[i], 0.5);
-            let [whiteMid2,
-                blackMid2] = isMiddle2(fen[i], 0.3);
+            let [whiteMid, blackMid] = isMiddle(fen[i], 0.5);
+            let [whiteMid2, blackMid2] = isMiddle2(fen[i], 0.3);
             whiteScore = whiteScore + whiteMid + whiteMid2;
             blackScore = blackScore + blackMid + blackMid2;
         }
 
         if (i === 2 || i === 5) {
-            let [whiteMid,
-                blackMid] = isMiddle(fen[i], 0.3);
-            let [whiteMid2,
-                blackMid2] = isMiddle2(fen[i], 0.3);
+            let [whiteMid, blackMid] = isMiddle(fen[i], 0.3);
+            let [whiteMid2, blackMid2] = isMiddle2(fen[i], 0.3);
             whiteScore = whiteScore + whiteMid + whiteMid2;
             blackScore = blackScore + blackMid + blackMid2;
         }
     }
 
-    return {whiteScore, blackScore};
+    console.log(board);
+    // if (board.in_stalemate() || board.in_draw()) {
+    //     whiteScore = 0;
+    //     blackScore = 0;
+    // } else if (board.in_checkmate()) {
+    //     if (sideToMove === 'w') {
+    //         whiteScore = 0;
+    //     } else if (sideToMove === 'b') {
+    //         blackScore = 0;
+    //     }
+    // } else if (board.in_check()) {
+    //     if (sideToMove === 'w') {
+    //         blackScore += 0.8;
+    //     } else if (sideToMove === 'b') {
+    //         whiteScore += 0.8
+    //     }
+    // }
+    //
+    return {
+        whiteScore,
+        blackScore
+    };
 }
 
 function isMiddle(row, midVal) {
