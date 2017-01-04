@@ -38,28 +38,33 @@ function getBoardValues(board) {
         }
     }
 
-    console.log(board);
-    // if (board.in_stalemate() || board.in_draw()) {
-    //     whiteScore = 0;
-    //     blackScore = 0;
-    // } else if (board.in_checkmate()) {
-    //     if (sideToMove === 'w') {
-    //         whiteScore = 0;
-    //     } else if (sideToMove === 'b') {
-    //         blackScore = 0;
-    //     }
-    // } else if (board.in_check()) {
-    //     if (sideToMove === 'w') {
-    //         blackScore += 0.8;
-    //     } else if (sideToMove === 'b') {
-    //         whiteScore += 0.8
-    //     }
-    // }
-    //
+    [whiteScore, blackScore] = gameEnders(board, whiteScore, blackScore, sideToMove);
+
     return {
         whiteScore,
         blackScore
     };
+}
+
+function gameEnders(board, whiteScore, blackScore, sideToMove) {
+    if (board.in_stalemate() || board.in_draw()) {
+        whiteScore = 0;
+        blackScore = 0;
+    } else if (board.in_checkmate()) {
+        if (sideToMove === 'w') {
+            whiteScore = 0;
+        } else if (sideToMove === 'b') {
+            blackScore = 0;
+        }
+    } else if (board.in_check()) {
+        if (sideToMove === 'w') {
+            blackScore += 0.8;
+        } else if (sideToMove === 'b') {
+            whiteScore += 0.8
+        }
+    }
+
+    return [whiteScore, blackScore];
 }
 
 function isMiddle(row, midVal) {
