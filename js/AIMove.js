@@ -43,13 +43,18 @@ function AImove() {
 function createChildren(node) {
     var possibleMoves = node.board.moves();
 
-    if (possibleMoves.length === 0) return;
+    if (possibleMoves.length === 0)
+        return;
 
+    node.children = []
     // value of each moves
-    node.children = possibleMoves.map(function(ele) {
+    for (var i = 0; i < possibleMoves.length; i++) {
         var possibleBoard = new Chess(node.board.fen());
-        possibleBoard.move(ele);
+        possibleBoard.move(possibleMoves[i]);
 
-        return new Node(ele, possibleBoard, getBoardValues(possibleBoard).whiteScore, getBoardValues(possibleBoard).blackScore);
-    });
+        let boardVals = getBoardValues(possibleBoard)
+
+        node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore))
+    }
+
 }
