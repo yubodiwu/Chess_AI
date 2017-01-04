@@ -6,7 +6,7 @@
 // jshint mocha: true
 
 var tree = new Tree();
-tree.root = new Node(null, game, getBoardValues(board).whiteScore, getBoardValues(board).blackScore);
+tree.root = new Node(null, game, getBoardValues(game).whiteScore, getBoardValues(game).blackScore);
 
 var children = []
 var best = 0;
