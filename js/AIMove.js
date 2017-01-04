@@ -6,7 +6,7 @@
 // jshint mocha: true
 
 function AImove() {
-    var t0 = performance.now();
+    var t0 = performance.now()
     var AIColor = 'black';
     var startBoard = tree.root;
     var min = 999;
@@ -14,7 +14,7 @@ function AImove() {
     createChildren(startBoard);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
-        return findBestMoveMaxi(ele, 2, max, min);
+        return findBestMoveMaxi(ele, 1, max, min)
     });
 
     var bestBoards = startBoard.children.reduce(function(accum, cur) {
@@ -29,13 +29,33 @@ function AImove() {
 
     var minVal = Math.min(...futureBoardValues);
     var minInds = futureBoardValues.reduce(function(accum, cur, i) {
-        if (cur === minVal) accum.push(i);
+        if (cur === minVal) {
+            accum.push(i);
+        }
 
         return accum;
     }, [])
-
     var minInd = minInds[Math.floor(Math.random() * minInds.length)];
     game.move(startBoard.children[minInd].prevMove)
     board.position(game.fen());
     console.log(`time to move is ${performance.now() - t0}`);
+}
+
+function createChildren(node) {
+    var possibleMoves = node.board.moves();
+
+    if (possibleMoves.length === 0)
+        return;
+
+    node.children = []
+    // value of each moves
+    for (var i = 0; i < possibleMoves.length; i++) {
+        var possibleBoard = new Chess(node.board.fen());
+        possibleBoard.move(possibleMoves[i]);
+
+        let boardVals = getBoardValues(possibleBoard)
+
+        node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore))
+    }
+
 }
