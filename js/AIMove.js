@@ -9,9 +9,10 @@ function AImove() {
     var AIColor = 'black';
     var startBoard = tree.root;
     createChildren(startBoard);
-
+    var max = -999;
+    var min = 999;
     var futureBoardValues = startBoard.children.map(function(ele) {
-        return findBestMoveMaxi(ele, 1)
+        return findBestMoveMaxi(ele, 2, max, min);
     });
 
     var bestBoards = startBoard.children.reduce(function(accum, cur) {
@@ -33,6 +34,9 @@ function AImove() {
         return accum;
     }, [])
     var minInd = minInds[Math.floor(Math.random() * minInds.length)];
+    console.log("futureBoardValues", futureBoardValues);
+    console.log("midInds", minInds);
+    console.log("tree root", tree.root.children[0]);
     game.move(startBoard.children[minInd].prevMove)
     board.position(game.fen());
 }
