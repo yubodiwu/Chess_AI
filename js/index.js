@@ -130,5 +130,6 @@ var cfg = {
     onSnapEnd: onSnapEnd
 };
 board = ChessBoard('board', cfg);
+console.log(board);
 
 updateStatus();
