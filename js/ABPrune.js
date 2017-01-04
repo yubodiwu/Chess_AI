@@ -16,7 +16,7 @@ function findBestMoveMaxi(node, depth) {
     if (depth === 0) return node.whiteScore - node.blackScore;
     createChildren(node)
 
-    var max = 0;
+    var max = -999;
 
     for (let child of node.children) {
         var score = findBestMoveMini(child, depth - 1);
@@ -32,8 +32,7 @@ function findBestMoveMaxi(node, depth) {
 function findBestMoveMini(node, depth) {
     if (depth === 0) return node.whiteScore - node.blackScore;
     createChildren(node);
-    console.log(node.whiteScore - node.blackScore, node.prevMove);
-    var min = 145;
+    var min = 999;
 
     for (let child of node.children) {
         var score = findBestMoveMaxi(child, depth - 1)
@@ -61,13 +60,12 @@ function createChildren(node) {
 }
 
 function AImove() {
-    console.log('ai tries to move');
     var AIColor = 'black';
     var startBoard = tree.root;
     createChildren(startBoard);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
-        return findBestMoveMini(ele, 2)
+        return findBestMoveMaxi(ele, 1)
     })
 
     console.log(futureBoardValues);
@@ -82,9 +80,9 @@ function AImove() {
         return accum
     }, [startBoard.children[0]])
 
-    var randomIndex = Math.floor(Math.random() * bestBoards.length);
-
-    game.move(bestBoards[randomIndex].prevMove)
+    // var randomIndex = Math.floor(Math.random() * futureBoardValues.indexOf(Math.min(...futureBoardValues)).length);
+    var minInd = futureBoardValues.indexOf(Math.min(...futureBoardValues));
+    game.move(startBoard.children[minInd].prevMove)
     board.position(game.fen());
 }
 
