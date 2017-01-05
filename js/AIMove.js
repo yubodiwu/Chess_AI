@@ -15,7 +15,7 @@ function AImove() {
     createChildren(startBoard);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
-        return findBestMoveMaxi(ele, 1, max, min)
+        return findBestMoveMaxi(ele, 2, max, min)
     });
 
     var bestBoards = startBoard.children.reduce(function(accum, cur) {
@@ -49,7 +49,7 @@ function createChildren(node) {
 
     //check if fen already created;
     if (cache[fen]) {
-        console.log('cache entered');
+        // console.log('cache q');
         node = cache[fen];
         return;
     }
@@ -65,6 +65,10 @@ function createChildren(node) {
 
         node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore))
     }
+
+    node.children.sort(function(ele) {
+        return ele.whiteScore - ele.blackScore;
+    });
 
     //store new node in the cache;
     cache[fen] = node;
