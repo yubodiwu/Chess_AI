@@ -4,6 +4,7 @@
 // jshint node: true
 // jshint browser: true
 // jshint mocha: true
+var potMoveVal = 0.025
 
 function getBoardValues(board) {
     var whiteScore = 0;
@@ -11,6 +12,15 @@ function getBoardValues(board) {
 
     var fen = board.fen().split(' ')[0].split('/');
     var sideToMove = board.fen().split(' ')[1];
+    var [whitePositions, blackPositions] = getPositions(board);
+
+    for (let position of whitePositions) {
+        whiteScore += board.moves({square: position}).length * potMoveVal;
+    }
+
+    for (let position of blackPositions) {
+        whiteScore += board.moves({square:position}).length * potMoveVal;
+    }
 
     for (let i = 0; i < fen.length; i++) {
         for (let j = 0; j < fen[i].length; j++) {
@@ -44,6 +54,27 @@ function getBoardValues(board) {
         whiteScore,
         blackScore
     };
+}
+
+function getPositions(board) {
+    var whiteSpaces = [];
+    var blackSpaces = [];
+
+    for (let letter of 'abcdefgh') {
+        for (let i = 1; i <= 8; i++) {
+            var space = board.get(letter + i);
+
+            if (space) {
+                if (space.color === 'b') {
+                    blackSpaces.push(letter + i);
+                } else if (space.color === 'w') {
+                    whiteSpaces.push(letter + i);
+                }
+            }
+        }
+    }
+
+    return [whiteSpaces, blackSpaces];
 }
 
 function gameEnders(board, whiteScore, blackScore, sideToMove) {
