@@ -14,37 +14,37 @@ function getBoardValues(board) {
     var sideToMove = board.fen().split(' ')[1];
     var [whitePositions, blackPositions] = getPositions(board);
 
-    for (let position of whitePositions) {
-        var posMoves = board.moves({square: position})
-        whiteScore += posMoves.length * potMoveVal;
-
-        for (let move of posMoves) {
-            let xind = move.indexOf('x');
-
-            if (xind !== -1) {
-                // let pos = move.substring(xind + 1, xind + 3);
-                // let pieceVal = pieceValues[board.get(pos).type];
-                // whiteScore += potMoveVal * pieceVal;
-                whiteScore += potMoveVal * potMoveVal * 2;
-            }
-        }
-    }
-
-    for (let position of blackPositions) {
-        var posMoves = board.moves({square: position})
-        blackScore += posMoves.length * potMoveVal;
-
-        for (let move of posMoves) {
-            let xind = move.indexOf('x');
-
-            if (xind !== -1) {
-                // let pos = move.substring(xind + 1, xind + 3);
-                // let pieceVal = pieceValues[board.get(pos).type];
-                // whiteScore += potMoveVal * pieceVal;
-                blackScore += potMoveVal * potMoveVal * 2;
-            }
-        }
-    }
+    // for (let position of whitePositions) {
+    //     var posMoves = board.moves({square: position})
+    //     whiteScore += posMoves.length * potMoveVal;
+    //
+    //     for (let move of posMoves) {
+    //         let xind = move.indexOf('x');
+    //
+    //         if (xind !== -1) {
+    //             // let pos = move.substring(xind + 1, xind + 3);
+    //             // let pieceVal = pieceValues[board.get(pos).type];
+    //             // whiteScore += potMoveVal * pieceVal;
+    //             whiteScore += potMoveVal * potMoveVal * 2;
+    //         }
+    //     }
+    // }
+    //
+    // for (let position of blackPositions) {
+    //     var posMoves = board.moves({square: position})
+    //     blackScore += posMoves.length * potMoveVal;
+    //
+    //     for (let move of posMoves) {
+    //         let xind = move.indexOf('x');
+    //
+    //         if (xind !== -1) {
+    //             // let pos = move.substring(xind + 1, xind + 3);
+    //             // let pieceVal = pieceValues[board.get(pos).type];
+    //             // whiteScore += potMoveVal * pieceVal;
+    //             blackScore += potMoveVal * potMoveVal * 2;
+    //         }
+    //     }
+    // }
 
     for (let i = 0; i < fen.length; i++) {
         for (let j = 0; j < fen[i].length; j++) {
@@ -71,24 +71,6 @@ function getBoardValues(board) {
             blackScore = blackScore + blackMid + blackMid2;
         }
     }
-
-    // if (board.in_stalemate() || board.in_draw()) {
-    //     whiteScore = 0;
-    //     blackScore = 0;
-    // } else if (board.in_checkmate()) {
-    //     if (sideToMove === 'w') {
-    //         whiteScore = 0;
-    //     } else if (sideToMove === 'b') {
-    //         blackScore = 0;
-    //     }
-    // } else if (board.in_check()) {
-    //     if (sideToMove === 'w') {
-    //         blackScore += 0.8;
-    //     } else if (sideToMove === 'b') {
-    //         whiteScore += 0.8
-    //     }
-    // }
-    //
 
     [whiteScore, blackScore] = gameEnders(board, whiteScore, blackScore, sideToMove);
 

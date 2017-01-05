@@ -4,7 +4,7 @@
 // jshint node: true
 // jshint browser: true
 // jshint mocha: true
-var hash = {};
+var cache = {};
 
 function AImove() {
     var t0 = performance.now()
@@ -48,14 +48,14 @@ function createChildren(node) {
     var fen = node.board.fen();
 
     //check if fen already created;
-    if (hash[fen]) {
-        node = hash[fen];
+    if (cache[fen]) {
+        console.log('cache entered');
+        node = cache[fen];
         return;
     }
 
     var possibleMoves = node.board.moves();
     if (possibleMoves.length === 0) return;
-    node.children = [];
 
     // value of each moves
     for (var i = 0; i < possibleMoves.length; i++) {
@@ -66,6 +66,6 @@ function createChildren(node) {
         node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore))
     }
 
-    //store new node in the hashtbale;
-    hash[fen] = node;
+    //store new node in the cache;
+    cache[fen] = node;
 }
