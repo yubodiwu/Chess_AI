@@ -17,3 +17,7 @@ nav {
 nav .brand-logo {
     color: white !important;
 }
+
+p {
+    color: 1px solid white !important;
+}
