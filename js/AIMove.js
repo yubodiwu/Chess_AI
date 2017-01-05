@@ -55,6 +55,7 @@ function AImove() {
     game.move(startBoard.children[minInd].prevMove)
     board.position(game.fen());
     console.log(`time to move is ${performance.now() - t0}`);
+    // console.log(getBoardValues(game));
 }
 
 function createChildren(node) {

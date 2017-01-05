@@ -4,7 +4,7 @@ margin-top: 15px
 }
 
  body {
-     background-image: url("../img/background.jpg");
+     background-image: url("../img/water.jpg");
     background-size: 100% auto;
 
  }
@@ -16,4 +16,8 @@ nav {
 
 nav .brand-logo {
     color: white !important;
+}
+
+p {
+    color: 1px solid white !important;
 }
