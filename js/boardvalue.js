@@ -14,35 +14,37 @@ function getBoardValues(board) {
     var sideToMove = board.fen().split(' ')[1];
     var [whitePositions, blackPositions] = getPositions(board);
 
-    // for (let position of whitePositions) {
-    //     var posMoves = board.moves({square: position})
-    //     whiteScore += posMoves.length * potMoveVal;
-    //
-    //     for (let move of posMoves) {
-    //         let xind = move.indexOf('x');
-    //
-    //         if (xind !== -1) {
-    //             let pos = move.substring(xind + 1, xind + 3);
-    //             let pieceVal = pieceValues[board.get(pos).type];
-    //             whiteScore += potMoveVal * pieceVal
-    //         }
-    //     }
-    // }
-    //
-    // for (let position of blackPositions) {
-    //     var posMoves = board.moves({square: position})
-    //     blackScore += posMoves.length * potMoveVal;
-    //
-    //     for (let move of posMoves) {
-    //         let xind = move.indexOf('x');
-    //
-    //         if (xind !== -1) {
-    //             let pos = move.substring(xind + 1, xind + 3);
-    //             let pieceVal = pieceValues[board.get(pos).type];
-    //             whiteScore += potMoveVal * pieceVal
-    //         }
-    //     }
-    // }
+    for (let position of whitePositions) {
+        var posMoves = board.moves({square: position})
+        whiteScore += posMoves.length * potMoveVal;
+
+        for (let move of posMoves) {
+            let xind = move.indexOf('x');
+
+            if (xind !== -1) {
+                // let pos = move.substring(xind + 1, xind + 3);
+                // let pieceVal = pieceValues[board.get(pos).type];
+                // whiteScore += potMoveVal * pieceVal;
+                whiteScore += potMoveVal * potMoveVal * 2;
+            }
+        }
+    }
+
+    for (let position of blackPositions) {
+        var posMoves = board.moves({square: position})
+        blackScore += posMoves.length * potMoveVal;
+
+        for (let move of posMoves) {
+            let xind = move.indexOf('x');
+
+            if (xind !== -1) {
+                // let pos = move.substring(xind + 1, xind + 3);
+                // let pieceVal = pieceValues[board.get(pos).type];
+                // whiteScore += potMoveVal * pieceVal;
+                blackScore += potMoveVal * potMoveVal * 2;
+            }
+        }
+    }
 
     for (let i = 0; i < fen.length; i++) {
         for (let j = 0; j < fen[i].length; j++) {

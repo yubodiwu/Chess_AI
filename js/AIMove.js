@@ -4,22 +4,7 @@
 // jshint node: true
 // jshint browser: true
 // jshint mocha: true
-
-class HashTable{
-    constructor(){
-        this.hash = {};
-    }
-    set(key, value){
-        this.hash[key] = value;
-    }
-    find(key){
-        return this.hash[key] ? true: false;
-    }
-    get(key){
-        return this.hash[key];
-    }
-}
-var hash = new HashTable();
+var hash = {};
 
 function AImove() {
     var t0 = performance.now()
@@ -30,7 +15,7 @@ function AImove() {
     createChildren(startBoard);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
-        return findBestMoveMaxi(ele, 5, max, min)
+        return findBestMoveMaxi(ele, 1, max, min)
     });
 
     var bestBoards = startBoard.children.reduce(function(accum, cur) {
@@ -60,17 +45,18 @@ function AImove() {
 
 function createChildren(node) {
     //create fen
-    var fen = node.board.fen;
+    var fen = node.board.fen();
+
     //check if fen already created;
-    // if (hash.find(fen)) {
-    //     return hash.get(gen);
-    // }
-    var possibleMoves = node.board.moves();
-
-    if (possibleMoves.length === 0)
+    if (hash[fen]) {
+        node = hash[fen];
         return;
+    }
 
-    node.children = []
+    var possibleMoves = node.board.moves();
+    if (possibleMoves.length === 0) return;
+    node.children = [];
+
     // value of each moves
     for (var i = 0; i < possibleMoves.length; i++) {
         var possibleBoard = new Chess(node.board.fen());
@@ -79,6 +65,7 @@ function createChildren(node) {
 
         node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore))
     }
+
     //store new node in the hashtbale;
-    hash.set(fen, node.children);
+    hash[fen] = node;
 }

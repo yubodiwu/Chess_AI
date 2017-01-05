@@ -20,11 +20,11 @@ function findBestMoveMaxi(node, depth, max, min) {
 
     for (let child of node.children) {
         value = findBestMoveMini(child, depth - 1, max, value);
-        if (hash.find(node.board)) {
-            return value;
-        }else{
-            hash.set(node.board, value);
-        }
+        // if (hash.find(node.board)) {
+        //     return value;
+        // }else{
+        //     hash.set(node.board, value);
+        // }
         if (value > min) {
             return value;
         }
@@ -44,11 +44,11 @@ function findBestMoveMini(node, depth, max, min) {
 
     for (let child of node.children) {
         var value = findBestMoveMaxi(child, depth - 1, value, min);
-        if (hash.find(node.board)) {
-            return value;
-        }else{
-            hash.set(node.board, value);
-        }
+        // if (hash.find(node.board)) {
+        //     return value;
+        // }else{
+        //     hash.set(node.board, value);
+        // }
         if (value < max) {
             return value;
         }
@@ -59,4 +59,3 @@ function findBestMoveMini(node, depth, max, min) {
 
     return min;
 }
-console.log(hash)
