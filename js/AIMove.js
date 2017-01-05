@@ -62,9 +62,9 @@ function createChildren(node) {
     //create fen
     var fen = node.board.fen;
     //check if fen already created;
-    if (hash.find(fen)) {
-        return hash.get(gen);
-    }
+    // if (hash.find(fen)) {
+    //     return hash.get(gen);
+    // }
     var possibleMoves = node.board.moves();
 
     if (possibleMoves.length === 0)
