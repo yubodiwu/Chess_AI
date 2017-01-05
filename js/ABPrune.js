@@ -22,7 +22,7 @@ function findBestMoveMaxi(node, depth, max, min) {
         value = findBestMoveMini(child, depth - 1, max, value);
 
         if (value > min) {
-            return value;
+            return min;
         }
         if (value > max) {
             max = value;
@@ -42,7 +42,7 @@ function findBestMoveMini(node, depth, max, min) {
         var value = findBestMoveMaxi(child, depth - 1, value, min);
 
         if (value < max) {
-            return value;
+            return max;
         }
         if (value < min) {
             min = value;
