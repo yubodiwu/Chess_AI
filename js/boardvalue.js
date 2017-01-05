@@ -38,7 +38,6 @@ function getBoardValues(board) {
         }
     }
 
-<<<<<<< HEAD
     // if (board.in_stalemate() || board.in_draw()) {
     //     whiteScore = 0;
     //     blackScore = 0;
@@ -56,10 +55,9 @@ function getBoardValues(board) {
     //     }
     // }
     //
-=======
+
     [whiteScore, blackScore] = gameEnders(board, whiteScore, blackScore, sideToMove);
 
->>>>>>> a5db997ec50c776bfab84d2862d3e131befc8429
     return {
         whiteScore,
         blackScore
