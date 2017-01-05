@@ -63,9 +63,11 @@ function createChildren(node) {
         possibleBoard.move(possibleMoves[i]);
         let boardVals = getBoardValues(possibleBoard)
 
-        node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore))
+        node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore, boardVals.whiteScore - boardVals.blackScore))
     }
-
+    node.children.sort(function(a, b) {
+        return b.totalScore - a.totalScore;
+    });
     //store new node in the hashtbale;
     hash[fen] = node;
 }

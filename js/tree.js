@@ -6,11 +6,12 @@
 // jshint mocha: true
 
 class Node {
-    constructor(prevMove, board, whiteScore, blackScore){
+    constructor(prevMove, board, whiteScore, blackScore, totalScore){
         this.prevMove = prevMove;
         this.board = board;
         this.whiteScore = whiteScore;
         this.blackScore = blackScore;
+        this.totalScore = totalScore;
     }
 }
 
