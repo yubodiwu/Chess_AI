@@ -15,7 +15,7 @@ function AImove() {
     createChildren(startBoard);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
-        return findBestMoveMaxi(ele, 1, max, min)
+        return findBestMoveMaxi(ele, 2, max, min)
     });
 
     var bestBoards = startBoard.children.reduce(function(accum, cur) {
@@ -65,6 +65,10 @@ function createChildren(node) {
 
         node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore))
     }
+
+    node.children.sort(function(node) {
+        return node.whiteScore - node.blackScore;
+    });
 
     //store new node in the hashtbale;
     hash[fen] = node;
