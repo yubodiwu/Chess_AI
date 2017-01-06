@@ -10,8 +10,10 @@ function getBoardValues(board) {
     var whiteScore = 0;
     var blackScore = 0;
 
-    var fen = board.fen().split(' ')[0].split('/');
-    var sideToMove = board.fen().split(' ')[1];
+    var forsythedward = board.fen();
+
+    var fen = forsythedward.split(' ')[0].split('/');
+    var sideToMove = forsythedward.split(' ')[1];
     var [whitePositions, blackPositions] = getPositions(board);
 
     for (let position of whitePositions) {
