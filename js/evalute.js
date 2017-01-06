@@ -2,7 +2,7 @@
 var PawnTable = [
     0, 0, 0, 0, 0, 0, 0, 0,
     10, 10, 0, -10, -10, 0, 10, 10,
-    50000, 0, 0, 5, 5, 0, 0, 5,
+    5, 0, 0, 5, 5, 0, 0, 5,
     0, 0, 10, 20, 20, 10, 0, 0,
     5, 5, 5, 10, 10, 5, 5, 5,
     10, 10, 10, 20, 20, 10, 10, 10,
@@ -62,7 +62,7 @@ var WhiteRookTable = RookTable.reverse();
 var WhiteKingTable = KingTable.reverse();
 
 var BishopPair = 40;
-var score;
+var score=0;
 var PCE;
 var PIECES = {
     'wP': 'P',
