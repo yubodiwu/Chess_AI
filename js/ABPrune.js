@@ -9,29 +9,27 @@ var tree = new Tree();
 tree.root = new Node(null, game, getBoardValues(game).whiteScore, getBoardValues(game).blackScore);
 
 var children = []
-var best = 0;
-var worst = 145;
+
 
 
 function findBestMoveMaxi(node, depth, max, min) {
     // console.log('findBestMoveMaxi happens')
     if (depth === 0) {
+        counter++
         return evalute(node) + (node.whiteScore - node.blackScore);
         // return node.whiteScore - node.blackScore;
     }
     createChildren(node);
     if (!node.children) return evalute(node) + (node.whiteScore - node.blackScore);//return node.whiteScore - node.blackScore;
+
     var value = -Infinity;
-
     for (let child of node.children) {
-        value = findBestMoveMini(child, depth - 1, max, value);
+        var value = Math.max(value, findBestMoveMini(child, depth - 1, max, min));
+        max = Math.max(value, max);
 
-        if (value > min) {
-            console.log('minPrune');
-            return min;
-        }
-        if (value > max) {
-            max = value;
+        if (min <= max) {
+            console.log('Prune during maxi');
+            break;
         }
     }
 
@@ -40,6 +38,7 @@ function findBestMoveMaxi(node, depth, max, min) {
 
 function findBestMoveMini(node, depth, max, min) {
     if (depth === 0) {
+        counter++;
         return evalute(node) + (node.whiteScore - node.blackScore);
         //return node.whiteScore - node.blackScore;
     }
@@ -48,13 +47,12 @@ function findBestMoveMini(node, depth, max, min) {
     var value = Infinity;
 
     for (let child of node.children) {
-        var value = findBestMoveMaxi(child, depth - 1, value, min);
-        if (value < max) {
-            console.log('maxPrune');
-            return max;
-        }
-        if (value < min) {
-            min = value;
+        value = Math.min(value, findBestMoveMaxi(child, depth - 1, value, min));
+        min = Math.min(value, min);
+
+        if (min <= max) {
+            console.log('Prune during mini');
+            break;
         }
     }
 

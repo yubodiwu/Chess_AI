@@ -2,7 +2,7 @@
 var PawnTable = [
     0, 0, 0, 0, 0, 0, 0, 0,
     10, 10, 0, -10, -10, 0, 10, 10,
-    50000, 0, 0, 5, 5, 0, 0, 5,
+    0, 0, 0, 5, 5, 0, 0, 5,
     0, 0, 10, 20, 20, 10, 0, 0,
     5, 5, 5, 10, 10, 5, 5, 5,
     10, 10, 10, 20, 20, 10, 10, 10,
@@ -175,7 +175,7 @@ function evalute(node) {
     PCE = PIECES.wK;
     for (let i = 0; i <= WhiteKingTable.length; i++) {
         if (boardState[i] === PCE) {
-            score -= WhiteKingTable[i];
+            score += WhiteKingTable[i];
         }
     }
     PCE = PIECES.bk;
@@ -184,6 +184,5 @@ function evalute(node) {
             score -= KingTable[i];
         }
     }
-    console.log(score)
     return score;
 }

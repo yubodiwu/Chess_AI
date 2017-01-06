@@ -5,7 +5,7 @@
 // jshint browser: true
 // jshint mocha: true
 var hash = {};
-
+var counter = 0;
 function AImove() {
     var t0 = performance.now()
     var AIColor = 'black';
@@ -18,6 +18,7 @@ function AImove() {
         // console.log('happens')
         return findBestMoveMaxi(ele, 1, max, min)
     });
+    futureBoardValues
 
     var bestBoards = startBoard.children.reduce(function(accum, cur) {
         if (accum[accum.length - 1].whiteScore > cur.whiteScore) {
@@ -40,6 +41,7 @@ function AImove() {
     var minInd = minInds[Math.floor(Math.random() * minInds.length)];
     game.move(startBoard.children[minInd].prevMove)
     board.position(game.fen());
+    console.log('The counter is ' + counter)
     console.log(`time to move is ${performance.now() - t0}`);
     console.log(getBoardValues(game));
 }
@@ -53,8 +55,7 @@ function createChildren(node) {
     //check if fen already created;
     let cachedNode = hash[trimmedFen];
     if (cachedNode && cachedNode.children) {
-        // console.log('cachedNode', cachedNode);
-        console.log('Cache Hit', trimmedFen);
+        console.log('cachedNode', trimmedFen);
         node.children = cachedNode.children;
         return;
     }
@@ -73,7 +74,7 @@ function createChildren(node) {
         let newNode = new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore, boardVals.whiteScore - boardVals.blackScore)
 
         node.children.push(newNode);
-        possibleBoard.undo();
+        //possibleBoard.undo();
     }
 
     node.children.sort(function(a, b) {
