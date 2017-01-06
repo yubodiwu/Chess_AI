@@ -71,7 +71,7 @@ function createChildren(node) {
         possibleBoard.move(possibleMoves[i]);
         let boardVals = getBoardValues(possibleBoard)
 
-        let newNode = new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore, boardVals.whiteScore - boardVals.blackScore)
+        let newNode = new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore, boardVals.whiteScore - boardVals.blackScore + evalute(possibleBoard))
 
         node.children.push(newNode);
         //possibleBoard.undo();
