@@ -20,9 +20,9 @@ function AImove() {
     });
 
     var bestBoards = startBoard.children.reduce(function(accum, cur) {
-        if (accum[accum.length - 1].whiteScore > cur.whiteScore) {
+        if (accum[accum.length - 1].score > cur.score) {
             accum = [cur]
-        } else if (accum[accum.length - 1].whiteScore === cur.whiteScore) {
+        } else if (accum[accum.length - 1].score === cur.score) {
             accum.push(cur)
         }
 
@@ -41,7 +41,6 @@ function AImove() {
     game.move(startBoard.children[minInd].prevMove)
     board.position(game.fen());
     console.log(`time to move is ${performance.now() - t0}`);
-    console.log(getBoardValues(game));
 }
 
 function createChildren(node) {
@@ -68,9 +67,9 @@ function createChildren(node) {
     for (var i = 0; i < possibleMoves.length; i++) {
         var possibleBoard = new Chess(node.board.fen());
         possibleBoard.move(possibleMoves[i]);
-        let boardVals = getBoardValues(possibleBoard)
+        let score = evalute(possibleBoard) + getBoardValues(possibleBoard)
 
-        let newNode = new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore, boardVals.whiteScore - boardVals.blackScore)
+        let newNode = new Node(possibleMoves[i], possibleBoard, null, null, score)
 
         node.children.push(newNode);
         possibleBoard.undo();

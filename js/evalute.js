@@ -79,8 +79,8 @@ var PIECES = {
     'bk': 'k'
 };
 
-var evalPosition = function(node) {
-    var boardState = node.board.fen().split(' ')[0];
+var evalPosition = function(board) {
+    var boardState = board.fen().split(' ')[0];
     var boardStateSplit = boardState.split("");
     boardStateSplit = boardStateSplit.filter(function(element) {
         if (element !== "/") {
@@ -104,13 +104,14 @@ var evalPosition = function(node) {
     });
 };
 
-function evalute(node) {
+function evalute(board) {
     // console.log('evaluate is happening')
     //console.log(WhitePawnTable)
     score = 0;
-    var boardState = evalPosition(node);
+    var boardState = evalPosition(board);
     PCE = PIECES.wP;
     for (let i = 0; i <= WhitePawnTable.length; i++) {
+        console.log('pawn hit');
         if (boardState[i] === PCE) {
             score += WhitePawnTable[i];
 

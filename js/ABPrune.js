@@ -16,11 +16,11 @@ var worst = 145;
 function findBestMoveMaxi(node, depth, max, min) {
     // console.log('findBestMoveMaxi happens')
     if (depth === 0) {
-        return evalute(node) + (node.whiteScore - node.blackScore);
+        return node.score;
         // return node.whiteScore - node.blackScore;
     }
     createChildren(node);
-    if (!node.children) return evalute(node) + (node.whiteScore - node.blackScore);//return node.whiteScore - node.blackScore;
+    if (!node.children) return node.score;//return node.whiteScore - node.blackScore;
     var value = -Infinity;
 
     for (let child of node.children) {
@@ -40,11 +40,11 @@ function findBestMoveMaxi(node, depth, max, min) {
 
 function findBestMoveMini(node, depth, max, min) {
     if (depth === 0) {
-        return evalute(node) + (node.whiteScore - node.blackScore);
+        return node.score;
         //return node.whiteScore - node.blackScore;
     }
     createChildren(node);
-    if (!node.children) return evalute(node) + (node.whiteScore - node.blackScore);//return node.whiteScore - node.blackScore;
+    if (!node.children) return node.score;//return node.whiteScore - node.blackScore;
     var value = Infinity;
 
     for (let child of node.children) {
