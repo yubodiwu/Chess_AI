@@ -10,11 +10,12 @@ function AImove() {
     var t0 = performance.now()
     var AIColor = 'black';
     var startBoard = tree.root;
-    var min = 999;
-    var max = -999;
+    var min = Infinity;
+    var max = -Infinity;
     createChildren(startBoard);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
+        // console.log('happens')
         return findBestMoveMaxi(ele, 1, max, min)
     });
 
@@ -45,13 +46,19 @@ function AImove() {
 
 function createChildren(node) {
     //create fen
-    var fen = node.board.fen();
 
+    var fen = node.board.fen();
+    var trimmedFen = fen.slice(0, fen.indexOf(' '));
+    // console.log(trimmedFen)
     //check if fen already created;
-    if (hash[fen]) {
-        node = hash[fen];
+    let cachedNode = hash[trimmedFen];
+    if (cachedNode && cachedNode.children) {
+        // console.log('cachedNode', cachedNode);
+        console.log('Cache Hit', trimmedFen);
+        node.children = cachedNode.children;
         return;
     }
+    // console.log("Cache Miss", trimmedFen);
 
     var possibleMoves = node.board.moves();
     if (possibleMoves.length === 0) return;
@@ -63,13 +70,16 @@ function createChildren(node) {
         possibleBoard.move(possibleMoves[i]);
         let boardVals = getBoardValues(possibleBoard)
 
-        node.children.push(new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore, boardVals.whiteScore - boardVals.blackScore))
+        let newNode = new Node(possibleMoves[i], possibleBoard, boardVals.whiteScore, boardVals.blackScore, boardVals.whiteScore - boardVals.blackScore)
+
+        node.children.push(newNode);
+        possibleBoard.undo();
     }
 
     node.children.sort(function(a, b) {
         return b.totalScore - a.totalScore;
     });
-    
+
     //store new node in the hashtbale;
-    hash[fen] = node;
+    hash[trimmedFen] = node;
 }
