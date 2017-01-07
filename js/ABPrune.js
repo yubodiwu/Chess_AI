@@ -13,8 +13,6 @@ var children = []
 
 
 function findBestMoveMaxi(node, depth, max, min) {
-    // console.log('findBestMoveMaxi happens')
-    console.log('max called');
     if (depth === 0) {
         counter++
         return node.totalScore;
@@ -38,7 +36,6 @@ function findBestMoveMaxi(node, depth, max, min) {
 }
 
 function findBestMoveMini(node, depth, max, min) {
-    console.log('min called');
     if (depth === 0) {
         counter++;
         return node.totalScore;
