@@ -9,23 +9,26 @@ var tree = new Tree();
 tree.root = new Node(null, game, getBoardValues(game).whiteScore, getBoardValues(game).blackScore);
 
 var children = []
-var best = 0;
-var worst = 145;
+
+
 
 function findBestMoveMaxi(node, depth, max, min) {
-    if (depth === 0) return node.whiteScore - node.blackScore;
+    if (depth === 0) {
+        counter++
+        return node.totalScore;
+        // return node.whiteScore - node.blackScore;
+    }
     createChildren(node);
-    if (!node.children) return node.whiteScore - node.blackScore;
+    if (!node.children) return node.totalScore;//return node.whiteScore - node.blackScore;
+
     var value = -Infinity;
-
     for (let child of node.children) {
-        value = findBestMoveMini(child, depth - 1, max, value);
+        var value = Math.max(value, findBestMoveMini(child, depth - 1, max, min));
+        max = Math.max(value, max);
 
-        if (value > min) {
-            return min;
-        }
-        if (value > max) {
-            max = value;
+        if (min <= max) {
+            console.log('Prune during maxi');
+            break;
         }
     }
 
@@ -33,19 +36,22 @@ function findBestMoveMaxi(node, depth, max, min) {
 }
 
 function findBestMoveMini(node, depth, max, min) {
-    if (depth === 0) return node.whiteScore - node.blackScore;
+    if (depth === 0) {
+        counter++;
+        return node.totalScore;
+        //return node.whiteScore - node.blackScore;
+    }
     createChildren(node);
-    if (!node.children) return node.whiteScore - node.blackScore;
+    if (!node.children) return node.totalScore;//return node.whiteScore - node.blackScore;
     var value = Infinity;
 
     for (let child of node.children) {
-        var value = findBestMoveMaxi(child, depth - 1, value, min);
+        value = Math.min(value, findBestMoveMaxi(child, depth - 1, value, min));
+        min = Math.min(value, min);
 
-        if (value < max) {
-            return max;
-        }
-        if (value < min) {
-            min = value;
+        if (min <= max) {
+            console.log('Prune during mini');
+            break;
         }
     }
 

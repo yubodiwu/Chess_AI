@@ -9,18 +9,18 @@ var possibleWhites = 'PNBRQK'.split('');
 var possibleBlacks = 'pnbrqk'.split('');
 
 var pieceValues = {
-    'P': 1,
-    'N': 3,
-    'B': 3,
-    'R': 5,
-    'Q': 9,
-    'K': 0,
-    'p': 1,
-    'n': 3,
-    'b': 3,
-    'r': 5,
-    'q': 9,
-    'k': 0
+    'P': 100,
+    'N': 325,
+    'B': 325,
+    'R': 550,
+    'Q': 1000,
+    'K': 50000,
+    'p': 100,
+    'n': 325,
+    'b': 325,
+    'r': 550,
+    'q': 1000,
+    'k': 50000
 };
 
 var board,
