@@ -8,7 +8,7 @@ var PawnTable = [
     10, 10, 10, 20, 20, 10, 10, 10,
     20, 20, 20, 30, 30, 20, 20, 20,
     0, 0, 0, 0, 0, 0, 0, 0
-];
+].reverse();
 
 
 var KnightTable = [
@@ -20,7 +20,7 @@ var KnightTable = [
     5, 10, 10, 20, 20, 10, 10, 5,
     0, 0, 5, 10, 10, 5, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
-];
+].reverse();
 
 var BishopTable = [
     0, 0, -10, 0, 0, -10, 0, 0,
@@ -31,7 +31,7 @@ var BishopTable = [
     0, 0, 10, 15, 15, 10, 0, 0,
     0, 0, 0, 10, 10, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
-];
+].reverse();
 
 var RookTable = [
     0, 0, 5, 10, 10, 5, 0, 0,
@@ -42,7 +42,7 @@ var RookTable = [
     0, 0, 5, 10, 10, 5, 0, 0,
     25, 25, 25, 25, 25, 25, 25, 25,
     0, 0, 5, 10, 10, 5, 0, 0
-];
+].reverse();
 
 var KingTable = [
     10, 10, 15, 10, 10, 10, 10, 10,
@@ -53,7 +53,7 @@ var KingTable = [
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0
-];
+].reverse();
 
 var WhitePawnTable = PawnTable.reverse();
 var WhiteKnightTable = KnightTable.reverse();
