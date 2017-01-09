@@ -5,8 +5,6 @@
 // jshint browser: true
 // jshint mocha: true
 var hash = {};
-hash.kldjflksdjfadjhfgajhdg = "Trevor was here";
-console.log("HASH TABLE", hash);
 var counter = 0;
 
 function AImove() {
@@ -15,11 +13,11 @@ function AImove() {
     var startBoard = tree.root;
     var min = Infinity;
     var max = -Infinity;
-    createChildren(startBoard, 4);
+    createChildren(startBoard, 2);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
         // console.log('happens')
-        return findBestMoveMini(ele, 3, max, min)
+        return findBestMoveMaxi(ele, 1, max, min);
     });
     futureBoardValues
 
@@ -80,13 +78,13 @@ function createChildren(node, depth) {
         node.children.push(newNode);
         //possibleBoard.undo();
     }
-    //max sort
+    //min sort
     if (depth % 2 === 1) {
         node.children.sort(function(a, b) {
                 return a.totalScore - b.totalScore;
             })
         };
-    //min sort
+    //max sort
     if(depth % 2 === 0){
         node.children.sort(function(a, b) {
                 return b.totalScore - a.totalScore;
