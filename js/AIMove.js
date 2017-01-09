@@ -5,18 +5,21 @@
 // jshint browser: true
 // jshint mocha: true
 var hash = {};
+hash.kldjflksdjfadjhfgajhdg = "Trevor was here";
+console.log("HASH TABLE", hash);
 var counter = 0;
+
 function AImove() {
     var t0 = performance.now()
     var AIColor = 'black';
     var startBoard = tree.root;
     var min = Infinity;
     var max = -Infinity;
-    createChildren(startBoard);
+    createChildren(startBoard, 4);
 
     var futureBoardValues = startBoard.children.map(function(ele) {
         // console.log('happens')
-        return findBestMoveMaxi(ele, 1, max, min)
+        return findBestMoveMini(ele, 3, max, min)
     });
     futureBoardValues
 
@@ -44,9 +47,10 @@ function AImove() {
     console.log('The counter is ' + counter)
     console.log(`time to move is ${performance.now() - t0}`);
     console.log(getBoardValues(game));
+    console.log("hash table", hash)
 }
 
-function createChildren(node) {
+function createChildren(node, depth) {
     //create fen
 
     var fen = node.board.fen();
@@ -76,10 +80,18 @@ function createChildren(node) {
         node.children.push(newNode);
         //possibleBoard.undo();
     }
-
-    node.children.sort(function(a, b) {
-        return b.totalScore - a.totalScore;
-    });
+    //max sort
+    if (depth % 2 === 1) {
+        node.children.sort(function(a, b) {
+                return a.totalScore - b.totalScore;
+            })
+        };
+    //min sort
+    if(depth % 2 === 0){
+        node.children.sort(function(a, b) {
+                return b.totalScore - a.totalScore;
+            })
+    }
 
     //store new node in the hashtbale;
     hash[trimmedFen] = node;

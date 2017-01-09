@@ -8,9 +8,20 @@
 var tree = new Tree();
 tree.root = new Node(null, game, getBoardValues(game).whiteScore, getBoardValues(game).blackScore);
 
-var children = []
+var children = [];
 
-
+// function alphaBeta(node, dpeth, max, min){
+//     for(var i = 0; i < depth; i++){
+//         if(i === depth - 1){
+//             return return node.totalScore;
+//         }
+//         if(i % 2 === 1){
+//             findBestMoveMaxi(node, max, min);
+//         }else{
+//             findBestMoveMini(node, max, min);
+//         }
+//     }
+// }
 
 function findBestMoveMaxi(node, depth, max, min) {
     if (depth === 0) {
@@ -18,7 +29,7 @@ function findBestMoveMaxi(node, depth, max, min) {
         return node.totalScore;
         // return node.whiteScore - node.blackScore;
     }
-    createChildren(node);
+    createChildren(node, depth);
     if (!node.children) return node.totalScore;//return node.whiteScore - node.blackScore;
 
     var value = -Infinity;
@@ -41,7 +52,7 @@ function findBestMoveMini(node, depth, max, min) {
         return node.totalScore;
         //return node.whiteScore - node.blackScore;
     }
-    createChildren(node);
+    createChildren(node, depth);
     if (!node.children) return node.totalScore;//return node.whiteScore - node.blackScore;
     var value = Infinity;
 
