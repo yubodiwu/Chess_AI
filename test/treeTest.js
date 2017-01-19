@@ -1,6 +1,6 @@
 "use strict";
-var Node = require("../js/tree").Node;
-var Tree = require("../js/tree").Test;
+var Node = require("./tree").Node;
+var Tree = require("./tree").Test;
 const expect = require("chai").expect;
 
 describe("Tree", function() {
