@@ -1,19 +1,28 @@
 {
-
-  "name": "chess_ai",
+  "name": "chess-ai",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "chess ai using ab-pruning",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chess": "^0.2.8",
+    "chess.js": "^0.10.2",
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Namkai, Yubo, Trevor",
-  "license": "ISC",
-  "dependencies": {
-    "chess.js": "^0.10.2"
-
-  "dependencies" {
-    "chess": "^0.2.8"
-
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yubodiwu/Chess_AI.git"
+  },
+  "author": "Yubo, Namkai, Trevor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yubodiwu/Chess_AI/issues"
+  },
+  "homepage": "https://github.com/yubodiwu/Chess_AI#readme"
 }
