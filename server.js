@@ -1,7 +1,7 @@
 "use strict";
 
 const express = require('express');
-const PORT = 8000;
+const PORT = process.env.PORT || 3001;
 
 // create our app
 var app = express();
